@@ -1,1 +1,5 @@
 set_env.sh
+
+deployment/aws-secret.yaml
+deployment/env-configmap.yaml
+deployment/env-secret.yaml
