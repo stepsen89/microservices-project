@@ -10,6 +10,8 @@ import { V0_FEED_MODELS } from "./controllers/v0/model.index";
 
 (async () => {
   await sequelize.addModels(V0_FEED_MODELS);
+
+  console.debug("Initialize database connection...");
   await sequelize.sync();
 
   const app = express();
@@ -17,6 +19,9 @@ import { V0_FEED_MODELS } from "./controllers/v0/model.index";
 
   app.use(bodyParser.json());
 
+  // We set the CORS origin to * so that we don't need to
+  // worry about the complexities of CORS this lesson. It's
+  // something that will be covered in the next course.
   app.use(
     cors({
       allowedHeaders: [
@@ -28,7 +33,8 @@ import { V0_FEED_MODELS } from "./controllers/v0/model.index";
         "Authorization",
       ],
       methods: "GET,HEAD,OPTIONS,PUT,PATCH,POST,DELETE",
-      origin: config.url,
+      preflightContinue: true,
+      origin: "*",
     })
   );
 
